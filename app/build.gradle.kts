@@ -26,10 +26,10 @@ repositories {
     mavenCentral()
 }
 
-tasks.test {
-    useJUnitPlatform()
+dependencies {
+    implementation("info.picocli:picocli:4.7.7")
 }
 
-tasks.getByName("run", JavaExec::class) {
-    standardInput = System.`in`
+tasks.test {
+    useJUnitPlatform()
 }
