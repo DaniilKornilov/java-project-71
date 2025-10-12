@@ -2,6 +2,7 @@ plugins {
     id("application")
     id("checkstyle")
     id("com.github.ben-manes.versions") version "0.53.0"
+    id("org.sonarqube") version "6.3.1.5724"
 }
 
 group = "hexlet.code"
@@ -28,7 +29,14 @@ repositories {
 
 dependencies {
     implementation("info.picocli:picocli:4.7.7")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "DaniilKornilov_java-project-71")
+        property("sonar.organization", "daniilkornilov")
+    }
 }
 
 tasks.test {

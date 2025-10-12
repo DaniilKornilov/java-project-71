@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
-public class JsonParser implements Parser {
+public final class JsonParser implements Parser {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Override
