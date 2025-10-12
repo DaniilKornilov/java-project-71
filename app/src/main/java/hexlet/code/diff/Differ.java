@@ -1,8 +1,7 @@
-package hexlet.code;
+package hexlet.code.diff;
 
-import hexlet.code.diff.DiffEntry;
-import hexlet.code.diff.DiffType;
-import hexlet.code.formatter.StylishFormatter;
+import hexlet.code.formatter.Formatter;
+import hexlet.code.formatter.FormatterFactory;
 import hexlet.code.parser.Parser;
 import hexlet.code.parser.ParserFactory;
 
@@ -19,19 +18,19 @@ public final class Differ {
     }
 
     public static String generate(String firstFilePath, String secondFilePath, String format) throws IOException {
-        Map<String, Object> first = getFileData(firstFilePath);
-        Map<String, Object> second = getFileData(secondFilePath);
+        Map<String, Object> first = parseFileData(firstFilePath);
+        Map<String, Object> second = parseFileData(secondFilePath);
 
-        List<DiffEntry> diff = diff(first, second);
-        return StylishFormatter.format(diff);
+        List<DiffEntry> diff = calculateDiff(first, second);
+        return formatData(format, diff);
     }
 
-    private static Map<String, Object> getFileData(String filePath) throws IOException {
+    private static Map<String, Object> parseFileData(String filePath) throws IOException {
         Parser parser = ParserFactory.getParser(filePath);
         return parser.parse(filePath);
     }
 
-    private static List<DiffEntry> diff(Map<String, Object> first, Map<String, Object> second) {
+    private static List<DiffEntry> calculateDiff(Map<String, Object> first, Map<String, Object> second) {
         Set<String> keys = new TreeSet<>();
         keys.addAll(first.keySet());
         keys.addAll(second.keySet());
@@ -47,8 +46,7 @@ public final class Differ {
                 if (Objects.equals(v1, v2)) {
                     result.add(new DiffEntry(DiffType.UNCHANGED, key, v1, v2));
                 } else {
-                    result.add(new DiffEntry(DiffType.REMOVED, key, v1, null));
-                    result.add(new DiffEntry(DiffType.ADDED, key, null, v2));
+                    result.add(new DiffEntry(DiffType.UPDATED, key, v1, v2));
                 }
             } else if (inFirst) {
                 result.add(new DiffEntry(DiffType.REMOVED, key, v1, null));
@@ -57,5 +55,10 @@ public final class Differ {
             }
         }
         return result;
+    }
+
+    private static String formatData(String format, List<DiffEntry> diffEntries) {
+        Formatter formatter = FormatterFactory.getFormatter(format);
+        return formatter.format(diffEntries);
     }
 }

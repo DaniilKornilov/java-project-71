@@ -1,0 +1,24 @@
+package hexlet.code.formatter;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public final class FormatterFactory {
+    private FormatterFactory() {
+    }
+
+    private static final Map<Format, Formatter> FORMATTERS = new HashMap<>();
+
+    static {
+        FORMATTERS.put(Format.STYLISH, new StylishFormatter());
+        FORMATTERS.put(Format.PLAIN, new PlainFormatter());
+    }
+
+    public static Formatter getFormatter(String format) {
+        Formatter formatter = FORMATTERS.get(Format.fromFormat(format));
+        if (formatter == null) {
+            throw new IllegalArgumentException("Unknown formatter: " + format);
+        }
+        return formatter;
+    }
+}
