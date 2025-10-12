@@ -5,6 +5,8 @@ import hexlet.code.diff.DiffEntry;
 import java.util.List;
 
 final class PlainFormatter implements Formatter {
+    private static final String PROPERTY = "Property '";
+
     @Override
     public String format(List<DiffEntry> diffEntries) {
         StringBuilder sb = new StringBuilder();
@@ -15,15 +17,15 @@ final class PlainFormatter implements Formatter {
                 case UNCHANGED -> {
                     // skip unchanged
                 }
-                case REMOVED -> sb.append("Property '")
+                case REMOVED -> sb.append(PROPERTY)
                         .append(key)
                         .append("' was removed\n");
-                case ADDED -> sb.append("Property '")
+                case ADDED -> sb.append(PROPERTY)
                         .append(key)
                         .append("' was added with value: ")
                         .append(stringify(entry.newValue()))
                         .append("\n");
-                case CHANGED -> sb.append("Property '")
+                case CHANGED -> sb.append(PROPERTY)
                         .append(key)
                         .append("' was updated. From ")
                         .append(stringify(entry.oldValue()))

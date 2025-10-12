@@ -1,13 +1,13 @@
 package hexlet.code.formatter;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public final class FormatterFactory {
     private FormatterFactory() {
     }
 
-    private static final Map<Format, Formatter> FORMATTERS = new HashMap<>();
+    private static final Map<Format, Formatter> FORMATTERS = new EnumMap<>(Format.class);
 
     static {
         FORMATTERS.put(Format.STYLISH, new StylishFormatter());

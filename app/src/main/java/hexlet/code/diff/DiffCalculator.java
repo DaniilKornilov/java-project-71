@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-final class DiffCalculator {
+public final class DiffCalculator {
     private DiffCalculator() {
     }
 

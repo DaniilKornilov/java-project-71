@@ -2,14 +2,14 @@ package hexlet.code.parser;
 
 import org.apache.commons.io.FilenameUtils;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public final class ParserFactory {
     private ParserFactory() {
     }
 
-    private static final Map<FileExtension, Parser> PARSERS = new HashMap<>();
+    private static final Map<FileExtension, Parser> PARSERS = new EnumMap<>(FileExtension.class);
 
     static {
         PARSERS.put(FileExtension.YAML, new YamlParser());

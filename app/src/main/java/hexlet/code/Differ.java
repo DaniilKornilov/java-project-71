@@ -1,5 +1,7 @@
-package hexlet.code.diff;
+package hexlet.code;
 
+import hexlet.code.diff.DiffCalculator;
+import hexlet.code.diff.DiffEntry;
 import hexlet.code.formatter.Formatter;
 import hexlet.code.formatter.FormatterFactory;
 import hexlet.code.parser.Parser;

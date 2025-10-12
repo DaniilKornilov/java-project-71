@@ -1,6 +1,7 @@
 plugins {
     id("application")
     id("checkstyle")
+    id("jacoco")
     id("com.github.ben-manes.versions") version "0.53.0"
     id("org.sonarqube") version "6.3.1.5724"
 }
@@ -27,13 +28,16 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation("info.picocli:picocli:4.7.7")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.0")
-    implementation("commons-io:commons-io:2.20.0")
+jacoco {
+    toolVersion = "0.8.13"
+    reportsDirectory = layout.buildDirectory.dir("reports/jacoco")
+}
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
+tasks.jacocoTestReport {
+    reports {
+        xml.required = true
+        html.required = true
+    }
 }
 
 sonar {
@@ -43,6 +47,16 @@ sonar {
     }
 }
 
+dependencies {
+    implementation("info.picocli:picocli:4.7.7")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.0")
+    implementation("commons-io:commons-io:2.20.0")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
+}
+
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
