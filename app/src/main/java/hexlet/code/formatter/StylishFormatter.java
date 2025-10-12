@@ -4,9 +4,9 @@ import hexlet.code.diff.DiffEntry;
 
 import java.util.List;
 
-public class JsonFormatter {
+public final class StylishFormatter {
 
-    private JsonFormatter() {
+    private StylishFormatter() {
     }
 
     public static String format(List<DiffEntry> diffEntries) {
@@ -30,9 +30,9 @@ public class JsonFormatter {
     }
 
     private static String valueToString(Object value) {
-        if (value == null) return "null";
-        if (value instanceof String s) return s;
-        if (value instanceof Number || value instanceof Boolean) return value.toString();
-        return String.valueOf(value);
+        if (value == null) {
+            return "null";
+        }
+        return value.toString();
     }
 }

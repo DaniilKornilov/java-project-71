@@ -2,7 +2,6 @@ package hexlet.code.parser;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,13 +24,13 @@ enum FileExtension {
     FileExtension(String... aliases) {
         this.aliases = new HashSet<>();
         for (String alias : aliases) {
-            this.aliases.add(alias.toLowerCase(Locale.ROOT));
+            this.aliases.add(alias.toLowerCase());
         }
     }
 
     static FileExtension fromExtension(String extension) {
         if (extension == null) {
-            return JSON;
+            throw new IllegalArgumentException("File extension cannot be null");
         }
         return LOOKUP.get(extension);
     }

@@ -18,6 +18,10 @@ public final class ParserFactory {
 
     public static Parser getParser(String filePath) {
         String fileExtension = FilenameUtils.getExtension(filePath);
-        return PARSERS.get(FileExtension.fromExtension(fileExtension));
+        Parser parser = PARSERS.get(FileExtension.fromExtension(fileExtension));
+        if (parser == null) {
+            throw new IllegalArgumentException("Unknown file extension: " + fileExtension);
+        }
+        return parser;
     }
 }

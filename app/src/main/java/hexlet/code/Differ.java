@@ -2,7 +2,7 @@ package hexlet.code;
 
 import hexlet.code.diff.DiffEntry;
 import hexlet.code.diff.DiffType;
-import hexlet.code.formatter.JsonFormatter;
+import hexlet.code.formatter.StylishFormatter;
 import hexlet.code.parser.Parser;
 import hexlet.code.parser.ParserFactory;
 
@@ -23,8 +23,7 @@ public final class Differ {
         Map<String, Object> second = getFileData(secondFilePath);
 
         List<DiffEntry> diff = diff(first, second);
-
-        return JsonFormatter.format(diff);
+        return StylishFormatter.format(diff);
     }
 
     private static Map<String, Object> getFileData(String filePath) throws IOException {
