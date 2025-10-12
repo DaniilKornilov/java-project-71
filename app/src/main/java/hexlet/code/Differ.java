@@ -2,6 +2,7 @@ package hexlet.code;
 
 import hexlet.code.diff.DiffCalculator;
 import hexlet.code.diff.DiffEntry;
+import hexlet.code.formatter.Format;
 import hexlet.code.formatter.Formatter;
 import hexlet.code.formatter.FormatterFactory;
 import hexlet.code.parser.Parser;
@@ -13,6 +14,10 @@ import java.util.Map;
 
 public final class Differ {
     private Differ() {
+    }
+
+    public static String generate(String firstFilePath, String secondFilePath) throws IOException {
+        return generate(firstFilePath, secondFilePath, Format.STYLISH.getName());
     }
 
     public static String generate(String firstFilePath, String secondFilePath, String format) throws IOException {

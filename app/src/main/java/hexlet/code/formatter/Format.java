@@ -28,4 +28,8 @@ public enum Format {
         }
         return LOOKUP.get(format.toLowerCase());
     }
+
+    public String getName() {
+        return name;
+    }
 }
