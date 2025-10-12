@@ -1,27 +1,43 @@
 package hexlet.code;
 
-import hexlet.code.parser.JsonParser;
+import hexlet.code.diff.DiffEntry;
+import hexlet.code.diff.DiffType;
+import hexlet.code.formatter.JsonFormatter;
+import hexlet.code.parser.Parser;
+import hexlet.code.parser.ParserFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
 public final class Differ {
-
-    private static final JsonParser JSON_PARSER = new JsonParser();
+    private Differ() {
+    }
 
     public static String generate(String firstFilePath, String secondFilePath, String format) throws IOException {
-        Map<String, Object> first = JSON_PARSER.parse(firstFilePath);
-        Map<String, Object> second = JSON_PARSER.parse(secondFilePath);
+        Map<String, Object> first = getFileData(firstFilePath);
+        Map<String, Object> second = getFileData(secondFilePath);
 
+        List<DiffEntry> diff = diff(first, second);
+
+        return JsonFormatter.format(diff);
+    }
+
+    private static Map<String, Object> getFileData(String filePath) throws IOException {
+        Parser parser = ParserFactory.getParser(filePath);
+        return parser.parse(filePath);
+    }
+
+    private static List<DiffEntry> diff(Map<String, Object> first, Map<String, Object> second) {
         Set<String> keys = new TreeSet<>();
         keys.addAll(first.keySet());
         keys.addAll(second.keySet());
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\n");
+        List<DiffEntry> result = new ArrayList<>();
         for (String key : keys) {
             boolean inFirst = first.containsKey(key);
             boolean inSecond = second.containsKey(key);
@@ -30,32 +46,17 @@ public final class Differ {
 
             if (inFirst && inSecond) {
                 if (Objects.equals(v1, v2)) {
-                    sb.append("   ").append(key).append(": ").append(valueToString(v1)).append("\n");
+                    result.add(new DiffEntry(DiffType.UNCHANGED, key, v1, v2));
                 } else {
-                    sb.append(" - ").append(key).append(": ").append(valueToString(v1)).append("\n");
-                    sb.append(" + ").append(key).append(": ").append(valueToString(v2)).append("\n");
+                    result.add(new DiffEntry(DiffType.REMOVED, key, v1, null));
+                    result.add(new DiffEntry(DiffType.ADDED, key, null, v2));
                 }
             } else if (inFirst) {
-                sb.append(" - ").append(key).append(": ").append(valueToString(v1)).append("\n");
+                result.add(new DiffEntry(DiffType.REMOVED, key, v1, null));
             } else {
-                sb.append(" + ").append(key).append(": ").append(valueToString(v2)).append("\n");
+                result.add(new DiffEntry(DiffType.ADDED, key, null, v2));
             }
         }
-        sb.append("}");
-        return sb.toString();
-    }
-
-    private static String valueToString(Object value) {
-        if (value == null) {
-            return "null";
-        }
-        if (value instanceof String) {
-            return (String) value;
-        }
-        if (value instanceof Number || value instanceof Boolean) {
-            return value.toString();
-        }
-
-        throw new IllegalArgumentException("Type expected to be flat! But received:" + value.getClass());
+        return result;
     }
 }
