@@ -30,10 +30,13 @@ final class PlainFormatter implements Formatter {
                         .append(" to ")
                         .append(stringify(entry.newValue()))
                         .append("\n");
+                default -> {
+                    // skip unknown diff type
+                }
             }
         }
 
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     private static String stringify(Object value) {

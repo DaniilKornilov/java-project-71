@@ -21,9 +21,9 @@ enum FileExtension {
 
     private final Set<String> aliases;
 
-    FileExtension(String... aliases) {
+    FileExtension(String... extensionAliases) {
         this.aliases = new HashSet<>();
-        for (String alias : aliases) {
+        for (String alias : extensionAliases) {
             this.aliases.add(alias.toLowerCase());
         }
     }

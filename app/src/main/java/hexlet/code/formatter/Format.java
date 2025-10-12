@@ -18,8 +18,8 @@ public enum Format {
 
     private final String name;
 
-    Format(String name) {
-        this.name = name;
+    Format(String formatName) {
+        this.name = formatName;
     }
 
     static Format fromFormat(String format) {

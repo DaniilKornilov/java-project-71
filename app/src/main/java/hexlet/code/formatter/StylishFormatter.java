@@ -13,21 +13,24 @@ final class StylishFormatter implements Formatter {
 
         for (DiffEntry entry : diffEntries) {
             switch (entry.type()) {
-                case UNCHANGED -> sb.append("   ")
+                case UNCHANGED -> sb.append("    ")
                         .append(entry.key()).append(": ")
                         .append(stringify(entry.oldValue()));
-                case REMOVED -> sb.append(" - ")
+                case REMOVED -> sb.append("  - ")
                         .append(entry.key()).append(": ")
                         .append(stringify(entry.oldValue()));
-                case ADDED -> sb.append(" + ")
+                case ADDED -> sb.append("  + ")
                         .append(entry.key()).append(": ")
                         .append(stringify(entry.newValue()));
-                case CHANGED -> sb.append(" - ")
+                case CHANGED -> sb.append("  - ")
                         .append(entry.key()).append(": ")
                         .append(stringify(entry.oldValue())).append("\n")
-                        .append(" + ")
+                        .append("  + ")
                         .append(entry.key()).append(": ")
                         .append(stringify(entry.newValue()));
+                default -> {
+                    // skip unknown diff type
+                }
             }
             sb.append("\n");
         }

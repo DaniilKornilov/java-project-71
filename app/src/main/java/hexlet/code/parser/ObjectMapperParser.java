@@ -11,10 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
-sealed abstract class ObjectMapperParser implements Parser
+abstract sealed class ObjectMapperParser implements Parser
         permits JsonParser, YamlParser {
-
-    protected abstract ObjectMapper getMapper();
 
     @Override
     public Map<String, Object> parse(String filePath) throws IOException {
@@ -25,6 +23,8 @@ sealed abstract class ObjectMapperParser implements Parser
             });
         }
     }
+
+    protected abstract ObjectMapper getMapper();
 
     private Path normalizePath(String path) throws IOException {
         Path absolutePath = Paths.get(path).toAbsolutePath().normalize();
