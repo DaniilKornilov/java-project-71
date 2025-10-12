@@ -4,5 +4,5 @@ public enum DiffType {
     UNCHANGED,
     ADDED,
     REMOVED,
-    UPDATED
+    CHANGED
 }

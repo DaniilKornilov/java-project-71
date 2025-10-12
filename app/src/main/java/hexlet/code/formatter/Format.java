@@ -5,7 +5,8 @@ import java.util.Map;
 
 public enum Format {
     STYLISH("stylish"),
-    PLAIN("plain");
+    PLAIN("plain"),
+    JSON("json");
 
     private static final Map<String, Format> LOOKUP = new HashMap<>();
 

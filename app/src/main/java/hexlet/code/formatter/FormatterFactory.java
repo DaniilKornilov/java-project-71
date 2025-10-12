@@ -12,6 +12,7 @@ public final class FormatterFactory {
     static {
         FORMATTERS.put(Format.STYLISH, new StylishFormatter());
         FORMATTERS.put(Format.PLAIN, new PlainFormatter());
+        FORMATTERS.put(Format.JSON, new JsonFormatter());
     }
 
     public static Formatter getFormatter(String format) {

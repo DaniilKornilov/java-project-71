@@ -22,7 +22,7 @@ final class StylishFormatter implements Formatter {
                 case ADDED -> sb.append(" + ")
                         .append(entry.key()).append(": ")
                         .append(stringify(entry.newValue()));
-                case UPDATED -> sb.append(" - ")
+                case CHANGED -> sb.append(" - ")
                         .append(entry.key()).append(": ")
                         .append(stringify(entry.oldValue())).append("\n")
                         .append(" + ")

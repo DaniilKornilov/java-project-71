@@ -23,7 +23,7 @@ final class PlainFormatter implements Formatter {
                         .append("' was added with value: ")
                         .append(stringify(entry.newValue()))
                         .append("\n");
-                case UPDATED -> sb.append("Property '")
+                case CHANGED -> sb.append("Property '")
                         .append(key)
                         .append("' was updated. From ")
                         .append(stringify(entry.oldValue()))
