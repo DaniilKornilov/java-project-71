@@ -12,3 +12,6 @@
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/DaniilKornilov/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/DaniilKornilov/java-project-71/actions)
+
+## Demo:
+[![asciinema](https://asciinema.org/a/OV6LX0NzytwIUWtRKPhwjuzAI.svg)](https://asciinema.org/a/OV6LX0NzytwIUWtRKPhwjuzAI)
