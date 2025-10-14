@@ -54,6 +54,18 @@ public final class DifferTest {
         assertEquals(expected, actual);
     }
 
+    @ParameterizedTest
+    @MethodSource("defaultDiffCases")
+    void testDefaultDiffGeneration(TestCase testCase) throws IOException {
+        String expected = readResource(testCase.expectedPath());
+        String actual = Differ.generate(
+                "src/test/resources/" + testCase.firstFile(),
+                "src/test/resources/" + testCase.secondFile()
+        );
+
+        assertEquals(expected, actual);
+    }
+
     private static Stream<TestCase> diffCases() {
         return Stream.of(
                 new TestCase("file1.json", "file2.json", "stylish", "stylish.txt"),
@@ -62,6 +74,13 @@ public final class DifferTest {
                 new TestCase("file1.yml", "file2.yml", "stylish", "stylish.txt"),
                 new TestCase("file1.yml", "file2.yml", "plain", "plain.txt"),
                 new TestCase("file1.yml", "file2.yml", "json", "json.txt")
+        );
+    }
+
+    private static Stream<TestCase> defaultDiffCases() {
+        return Stream.of(
+                new TestCase("file1.yml", "file2.yml", "default", "stylish.txt"),
+                new TestCase("file1.json", "file2.json", "default", "stylish.txt")
         );
     }
 

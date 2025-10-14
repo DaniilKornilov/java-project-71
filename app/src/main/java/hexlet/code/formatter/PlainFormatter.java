@@ -3,6 +3,7 @@ package hexlet.code.formatter;
 import hexlet.code.diff.DiffEntry;
 
 import java.util.List;
+import java.util.Map;
 
 final class PlainFormatter implements Formatter {
     private static final String PROPERTY = "Property '";
@@ -48,9 +49,9 @@ final class PlainFormatter implements Formatter {
         if (value instanceof String s) {
             return "'" + s + "'";
         }
-        if (value instanceof Number || value instanceof Boolean) {
-            return value.toString();
+        if (value instanceof Map || value instanceof List) {
+            return "[complex value]";
         }
-        return "[complex value]";
+        return value.toString();
     }
 }

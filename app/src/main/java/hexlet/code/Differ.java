@@ -2,11 +2,14 @@ package hexlet.code;
 
 import hexlet.code.diff.DiffCalculator;
 import hexlet.code.diff.DiffEntry;
+import hexlet.code.file.FileExtension;
+import hexlet.code.file.FileReader;
 import hexlet.code.formatter.Format;
 import hexlet.code.formatter.Formatter;
 import hexlet.code.formatter.FormatterFactory;
 import hexlet.code.parser.Parser;
 import hexlet.code.parser.ParserFactory;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,8 +32,10 @@ public final class Differ {
     }
 
     private static Map<String, Object> parseFileData(String filePath) throws IOException {
-        Parser parser = ParserFactory.getParser(filePath);
-        return parser.parse(filePath);
+        FileExtension fileExtension = FileExtension.fromExtension(FilenameUtils.getExtension(filePath));
+        Parser parser = ParserFactory.getParser(fileExtension);
+        String content = FileReader.readFile(filePath);
+        return parser.parse(content);
     }
 
     private static String formatData(String format, List<DiffEntry> diffEntries) throws IOException {

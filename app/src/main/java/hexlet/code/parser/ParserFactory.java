@@ -1,6 +1,6 @@
 package hexlet.code.parser;
 
-import org.apache.commons.io.FilenameUtils;
+import hexlet.code.file.FileExtension;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -16,9 +16,8 @@ public final class ParserFactory {
         PARSERS.put(FileExtension.JSON, new JsonParser());
     }
 
-    public static Parser getParser(String filePath) {
-        String fileExtension = FilenameUtils.getExtension(filePath);
-        Parser parser = PARSERS.get(FileExtension.fromExtension(fileExtension));
+    public static Parser getParser(FileExtension fileExtension) {
+        Parser parser = PARSERS.get(fileExtension);
         if (parser == null) {
             throw new IllegalArgumentException("Unknown file extension: " + fileExtension);
         }

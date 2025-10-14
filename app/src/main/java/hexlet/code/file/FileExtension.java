@@ -1,11 +1,11 @@
-package hexlet.code.parser;
+package hexlet.code.file;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-enum FileExtension {
+public enum FileExtension {
     JSON("json"),
     YAML("yaml", "yml");
 
@@ -28,7 +28,7 @@ enum FileExtension {
         }
     }
 
-    static FileExtension fromExtension(String extension) {
+    public static FileExtension fromExtension(String extension) {
         if (extension == null) {
             throw new IllegalArgumentException("File extension cannot be null");
         }
