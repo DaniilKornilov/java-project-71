@@ -1,7 +1,6 @@
 package hexlet.code.file;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -13,9 +12,7 @@ public final class FileReader {
 
     public static String readFile(String filePath) throws IOException {
         Path path = normalizePath(filePath);
-        try (InputStream in = Files.newInputStream(path)) {
-            return new String(in.readAllBytes());
-        }
+        return Files.readString(path);
     }
 
     private static Path normalizePath(String filePath) throws IOException {
