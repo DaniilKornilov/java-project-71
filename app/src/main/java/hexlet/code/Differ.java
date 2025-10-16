@@ -7,6 +7,7 @@ import hexlet.code.file.FileReader;
 import hexlet.code.formatter.Format;
 import hexlet.code.formatter.Formatter;
 import hexlet.code.formatter.FormatterFactory;
+import hexlet.code.parser.DataType;
 import hexlet.code.parser.Parser;
 import hexlet.code.parser.ParserFactory;
 import org.apache.commons.io.FilenameUtils;
@@ -33,7 +34,7 @@ public final class Differ {
 
     private static Map<String, Object> parseFileData(String filePath) throws IOException {
         FileExtension fileExtension = FileExtension.fromExtension(FilenameUtils.getExtension(filePath));
-        Parser parser = ParserFactory.getParser(fileExtension);
+        Parser parser = ParserFactory.getParser(DataType.fromFileExtension(fileExtension));
         String content = FileReader.readFile(filePath);
         return parser.parse(content);
     }

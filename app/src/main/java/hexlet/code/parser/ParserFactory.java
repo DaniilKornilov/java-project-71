@@ -1,7 +1,5 @@
 package hexlet.code.parser;
 
-import hexlet.code.file.FileExtension;
-
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -9,17 +7,17 @@ public final class ParserFactory {
     private ParserFactory() {
     }
 
-    private static final Map<FileExtension, Parser> PARSERS = new EnumMap<>(FileExtension.class);
+    private static final Map<DataType, Parser> PARSERS = new EnumMap<>(DataType.class);
 
     static {
-        PARSERS.put(FileExtension.YAML, new YamlParser());
-        PARSERS.put(FileExtension.JSON, new JsonParser());
+        PARSERS.put(DataType.YAML, new YamlParser());
+        PARSERS.put(DataType.JSON, new JsonParser());
     }
 
-    public static Parser getParser(FileExtension fileExtension) {
-        Parser parser = PARSERS.get(fileExtension);
+    public static Parser getParser(DataType dataType) {
+        Parser parser = PARSERS.get(dataType);
         if (parser == null) {
-            throw new IllegalArgumentException("Unknown file extension: " + fileExtension);
+            throw new IllegalArgumentException("Unknown data type: " + dataType);
         }
         return parser;
     }

@@ -32,6 +32,11 @@ public enum FileExtension {
         if (extension == null) {
             throw new IllegalArgumentException("File extension cannot be null");
         }
-        return LOOKUP.get(extension);
+
+        FileExtension fileExtension = LOOKUP.get(extension);
+        if (fileExtension == null) {
+            throw new IllegalArgumentException("Unsupported file extension: " + extension);
+        }
+        return fileExtension;
     }
 }
